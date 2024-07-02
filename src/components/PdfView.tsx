@@ -11,17 +11,17 @@ const options = {
 };
 
 export default function Sample({url}:{url:string}) {
-     const [numPages, setNumPages] = useState(null);
+     const [currentNumPages, setcurrentNumPages] = useState<number>(0);
 
-    function onDocumentLoadSuccess({ numPages: nextNumPages }) {
-        setNumPages(nextNumPages);
+    function onDocumentLoadSuccess({numPages}: {numPages: number}) {
+        setcurrentNumPages(numPages);
     }
 
     return (
         <div className="Example">
                 <div className="Example__container__document">
                     <Document file={url} onLoadSuccess={onDocumentLoadSuccess} options={options}>
-                        {Array.from(new Array(numPages), (el, index) => (
+                        {Array.from(new Array(currentNumPages), (el, index) => (
                             <Page key={`page_${index + 1}`} pageNumber={index + 1} />
                         ))}
                     </Document>
